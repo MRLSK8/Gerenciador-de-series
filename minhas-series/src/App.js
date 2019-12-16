@@ -1,31 +1,34 @@
-import React from "react";
-import {
-  Navbar,
-  NavbarBrand,
-  Collapse,
-  NavItem,
-  NavLink,
-  Nav,
-  NavbarToggler
-} from "reactstrap";
+import React, { useState, useEffect } from "react";
+import { BrowserRouter, Route } from "react-router-dom";
+import NovoGenero from "./components/NovoGenero";
+import Generos from "./components/Generos";
+import Header from "./components/Header";
+import EditarGeneros from "./components/EditarGenero";
+import Axios from "axios";
+
+const Home = () => {
+  return <h1>Home</h1>;
+};
 
 function App() {
+  const [data, setDate] = useState([]);
+
+  useEffect(() => {
+    Axios.get("/api").then(response => {
+      setDate(response.data.info);
+    });
+  }, []);
+
   return (
-    <div>
-      <Navbar color="light" light expand="md">
-        <NavbarBrand>Minhas series</NavbarBrand>
-        <NavbarToggler></NavbarToggler>
-        <Collapse isOpen={true} navbar>
-          <Nav className="ml-auto" navbar>
-            <NavItem>
-              <NavLink href="/">Genêros</NavLink>
-              <NavLink href="/">Idiomas</NavLink>
-              <NavLink href="/">Autores</NavLink>
-            </NavItem>
-          </Nav>
-        </Collapse>
-      </Navbar>
-    </div>
+    <BrowserRouter>
+      <div>
+        <Header />
+        <Route exact path="/" component={Home} />
+        <Route exact path="/generos" component={Generos} />
+        <Route exact path="/generos/:id" component={EditarGeneros} />
+        <Route exact path="/generos/novo" component={NovoGenero} />
+      </div>
+    </BrowserRouter>
   );
 }
 
