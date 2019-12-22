@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import {
   Navbar,
   NavbarBrand,
@@ -8,18 +8,18 @@ import {
   NavLink,
   Nav,
   NavbarToggler
-} from "reactstrap";
+} from 'reactstrap';
 
 function Header() {
   const [open, setOpen] = useState(false);
-  
+
   const toggle = () => {
     setOpen(!open);
   };
 
   return (
-    <div>
-      <Navbar color="light" light expand="md">
+    <Navbar color="light" light expand="md">
+      <div className="container">
         <NavbarBrand tag={Link} to="/">
           Minhas series
         </NavbarBrand>
@@ -27,12 +27,19 @@ function Header() {
         <Collapse isOpen={open} navbar>
           <Nav className="ml-auto" navbar>
             <NavItem>
-              <NavLink tag={Link} to="/Generos">Genêros</NavLink>
+              <NavLink tag={Link} to="/series">
+                Séries
+              </NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink tag={Link} to="/Generos">
+                Genêros
+              </NavLink>
             </NavItem>
           </Nav>
         </Collapse>
-      </Navbar>
-    </div>
+      </div>
+    </Navbar>
   );
 }
 

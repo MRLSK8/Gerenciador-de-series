@@ -1,33 +1,31 @@
-import React, { useState, useEffect } from "react";
-import { BrowserRouter, Route } from "react-router-dom";
-import NovoGenero from "./components/NovoGenero";
-import Generos from "./components/Generos";
-import Header from "./components/Header";
-import EditarGeneros from "./components/EditarGenero";
-import Axios from "axios";
+import React from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
-const Home = () => {
-  return <h1>Home</h1>;
-};
+import Header from './components/Header';
+
+import Generos from './components/Generos/Generos';
+import NovoGenero from './components/Generos/NovoGenero';
+import EditarGeneros from './components/Generos/EditarGenero';
+
+import Series from './components/Series/Series'
+import NovaSerie from './components/Series/NovaSerie';
+import InfoSerie from './components/Series/InfoSerie';
+import Home from './components/Home';
 
 function App() {
-  const [data, setDate] = useState([]);
-
-  useEffect(() => {
-    Axios.get("/api").then(response => {
-      setDate(response.data.info);
-    });
-  }, []);
-
   return (
     <BrowserRouter>
-      <div>
-        <Header />
+      <Header />
+      <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/generos" component={Generos} />
-        <Route exact path="/generos/:id" component={EditarGeneros} />
         <Route exact path="/generos/novo" component={NovoGenero} />
-      </div>
+        <Route exact path="/generos/:id" component={EditarGeneros} />
+
+        <Route exact path="/series" component={Series} />
+        <Route exact path="/series/novo" component={NovaSerie} />
+        <Route exact path="/series/:id" component={InfoSerie} />
+      </Switch>
     </BrowserRouter>
   );
 }
